@@ -1,34 +1,34 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404
+# from django.http import HttpResponse, Http404
+from .models import Article, Category
+
+
+
 #----------------------------------------------------------------
 
 def home(request):
-    return HttpResponse('hoooo')
+    context = {
+       "articles": Article.objects.published(),
+      
+}
+    return render(request, "blog/home.html", context)
 
 #----------------------------------------------------------------
+# detail article
 
-def api(request):
+def detail(request, slug):
+        context = {
+                # give object for article
+            "article": get_object_or_404(Article.objects.published(), slug=slug),
+           
 
-    data={
-        "article1":{ "title":"time",
-        "slug":"wewr",
-        "f":"b",
-        "kjbdk":4,},
-        "article11":{ "title":"hu",
-        "dec":"wewr",
-        "f":"b",
-        "kjbdk":4,},
-        "article12":{ "title":"hu",
-        "dec":"wewr",
-        "f":"b",
-        "kjbdk":4,},
-        "article13":{ "title":"hu",
-        "df":"wewr",
-        "f":"b",
-        "kjbdk":4,},
-        "article14":{ "title":"hu",
-        "trrrrrrr":"wewr",
-        "f":"b",
-        "kjbdk":4,},
-    }
-    return JsonResponse(data)
+        }          
+        return render(request, "blog/detail.html", context)
+
+# ----------------------------------------------------------------
+def category(request,slug):
+    context = {
+       "category": get_object_or_404(Category, slug=slug, status=True),
+}
+
+    return render(request, "blog/category.html", context)

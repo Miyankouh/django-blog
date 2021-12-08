@@ -23,3 +23,9 @@ urlpatterns = [
     path('',include('blog.urls')),
 ]
 
+
+#  To See The Photo In Django DIBUG Mode
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

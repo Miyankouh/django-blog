@@ -1,0 +1,62 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+
+ <!--custom -->
+{% block custom %}
+    <link rel="stylesheet" href="red.css">        
+{% endblock  %}
+
+
+
+
+{% block main %}
+
+<!-- Dynamic Page Header-->
+<header class="masthead" style="background-image: url('{% static 'blog/assets/img/home-bg.jpg' %}')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>وبلاگ جنگو</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--#############################################################################-->
+
+    <!-- Main Content-->
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                
+                <!--  Post preview-->
+                {% for article in category.articles.published %}
+                    <div class="post-preview">
+                        <a href="{%url 'blog:detail' article.slug %}">
+                            <h2 class="post-title">{{article.title}}</h2>
+                            <h3 class="post-subtitle">{{article.description|truncatewords:30}}</h3>
+                        </a>
+                        <p class="post-meta">
+                            نوشته شده توسط
+                            <a href="#!">گرشاسب</a>
+                            {{article.jpublish}}
+                            <!--show category in box-->
+                            <div class="">
+                                {% for cat in article.category_published.all %}
+                                   <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
+                                {% endfor %}
+                            </div>
+                        </p>
+                    </div>
+                {% endfor %}
+                
+                <!-- Pager-->
+                <div class="d-flex justify-content-end mb-4 pager-botton"><a class="btn btn-primary text-uppercase" href="#!">پست های قدیمی &larr;</a></div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
+

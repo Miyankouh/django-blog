@@ -1,0 +1,47 @@
+/* style-->font: Sahel */
+@font-face {
+    font-family: Sahel;
+    src: url('Sahel.eot');
+    src: url('Sahel.eot?#iefix') format('embedded-opentype'),
+         url('Sahel.woff2') format('woff2'),
+         url('Sahel.woff') format('woff'),
+         url('Sahel.ttf') format('truetype');
+    font-weight: normal;
+}
+
+
+body{
+    direction: rtl;
+    text-align: right;
+    font-family: "Sahel";
+    font-size:15px;
+}
+
+/* nav bar----> to articles page */
+ul.navbar-nav.ms-auto.py-4.py-lg-0 {
+    margin-left: initial !important;
+    margin-right: auto !important;
+}
+
+
+p.post-meta {
+    text-align: left;
+}
+
+ /* botton in home */
+.pager-botton{
+    float: left !important;
+}
+
+
+header.masthead .site-heading h1, header.masthead .site-heading .h1 {
+    font-size: 45px;
+}
+
+.post-preview > a > .post-title{
+    font-size:32px !important;
+}
+
+.post-subtitle{
+    font-size:18px;
+}
