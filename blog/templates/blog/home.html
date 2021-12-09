@@ -56,10 +56,10 @@
                 <!-- Pager-->
                 <div class="d-flex justify-content-end mb-4 pager-botton">
                     {% if articles.has_previous %}
-                    <a class="btn btn-primary text-uppercase" style="margin-left:4px;" href="{% url 'blog:home' %}?page={{articles.previous_page_number}}">پست های جدید &rarr;</a>
+                    <a class="btn btn-primary text-uppercase" style="margin-left:4px;" href="{% url 'blog:home' articles.previous_page_number %}">پست های جدید &rarr;</a>
                     {% endif %}
                     {% if articles.has_next %}
-                    <a class="btn btn-primary text-uppercase" href="{% url 'blog:home' %}?page={{articles.next_page_number}}">پست های قدیمی &larr;</a>
+                    <a class="btn btn-primary text-uppercase" href="{% url 'blog:home' articles.next_page_number %}">پست های قدیمی &larr;</a>
                     {% endif %}
                 </div>
             </div>
