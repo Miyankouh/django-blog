@@ -1,71 +1,22 @@
-{% extends 'blog/base.html' %}
-{% load static %}
+{% extends 'blog/list.html' %}
 
-
- <!--custom -->
-{% block custom %}
-    <link rel="stylesheet" href="red.css">        
+<!--header block -->
+{% block header %}
+<h3 class="alert alert-primary text-center">دسته بندی {{category.title}}</h3>
 {% endblock  %}
 
 
+<!--previous_url-->
+{% block previous_url %}
 
+{% url 'blog:category' category.slug page_obj.previous_page_number %}
 
-{% block main %}
-
-<!-- Dynamic Page Header-->
-<header class="masthead" style="background-image: url('{% static 'blog/assets/img/home-bg.jpg' %}')">
-    <div class="container position-relative px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="site-heading">
-                    <h1>وبلاگ جنگو</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!--#############################################################################-->
-
-    <!-- Main Content-->
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <h3 class="alert alert-primary text-center">دسته بندی {{category.title}}</h3>
-                <!--  Post preview-->
-                {% for article in object_list %}
-                    <div class="post-preview">
-                        <a href="{%url 'blog:detail' article.slug %}">
-                            <h2 class="post-title">{{article.title}}</h2>
-                            <h3 class="post-subtitle">{{article.description|truncatewords:30}}</h3>
-                        </a>
-                        <p class="post-meta">
-                            نوشته شده توسط
-                            <a href="#!">گرشاسب</a>
-                            {{article.jpublish}}
-                            <!--show category in box-->
-                            <div class="">
-                                {% for cat in article.category_published.all %}
-                                   <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
-                                {% endfor %}
-                            </div>
-                        </p>
-                    </div>
-                {% endfor %}
-                
-                <!-- Pager-->
-                {% if is_paginated %}
-                    <div class="d-flex justify-content-end mb-4 pager-botton">
-                        {% if page_obj.has_previous %}
-                        <a class="btn btn-primary text-uppercase" style="margin-left:4px;" href="{% url 'blog:category' category.slug page_obj.previous_page_number %}">پست های جدید &rarr;</a>
-                        {% endif %}
-                        {% if page_obj.has_next %}
-                        <a class="btn btn-primary text-uppercase" href="{% url 'blog:category' category.slug page_obj.next_page_number %}">پست های قدیمی &larr;</a>
-                        {% endif %}
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
 {% endblock  %}
 
+
+<!--next_url -->
+{% block next_url %}
+
+{% url 'blog:category' category.slug page_obj.next_page_number %}
+
+{% endblock  %}

@@ -1,6 +1,15 @@
 from django.contrib import admin
 from .models import Article, Category
 # ----------------------------------------------------------------
+
+# admin header chang
+admin.site.site_header = "اولین وبلاگ جنگویی من"
+
+
+
+
+
+# ----------------------------------------------------------------
 # actions
 
 # publish
@@ -52,7 +61,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
     def category_to_str(self, obj):
-        return " , ".join([category.title for category in obj.category_published()])
+        return " , ".join([category.title for category in obj.category.active()])
     category_to_str.short_description = "دسته بندی"
 
 

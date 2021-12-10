@@ -77,9 +77,6 @@ class Article(models.Model):
         return jalali_converter(self.publish)
     jpublish.short_description = "زمان انتشار"
 
-    # Fix a category bug when we disable it
-    def category_published(self):
-        return self.category.filter(status=True)
 
     # thumbnail 
     def thumbnail_tag(self):
