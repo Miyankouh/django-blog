@@ -51,8 +51,8 @@ admin.site.register(Category, CategoryAdmin)
 # ----------------------------------------------------------------
 # Settings for the admin page
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'thumbnail_tag' , 'slug','jpublish','status', 'category_to_str')
-    list_filter = ('publish', 'status')
+    list_display = ('title', 'thumbnail_tag' , 'slug', 'author' , 'jpublish','status', 'category_to_str')
+    list_filter = ('publish', 'status', 'author')
     search_fields = ('title', 'description')
     # Simultaneous Writing Of Titles And Slug
     prepopulated_fields = {'slug':('title',)}

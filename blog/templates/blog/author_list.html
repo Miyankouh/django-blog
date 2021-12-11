@@ -1,0 +1,22 @@
+{% extends 'blog/list.html' %}
+
+<!--header block -->
+{% block header %}
+<h3 class="alert alert-primary text-center">  نویسنده : {{author.username}}</h3>
+{% endblock  %}
+
+
+<!--previous_url-->
+{% block previous_url %}
+
+{% url 'blog:author' author.username page_obj.previous_page_number %}
+
+{% endblock  %}
+
+
+<!--next_url -->
+{% block next_url %}
+
+{% url 'blog:author' author.username page_obj.next_page_number %}
+
+{% endblock  %}

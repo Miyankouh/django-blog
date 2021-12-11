@@ -4,7 +4,7 @@
 
  <!--custom -->
 {% block custom %}
-    <link rel="stylesheet" href="red.css">        
+           
 {% endblock  %}
 
 
@@ -44,7 +44,7 @@
                         </a>
                         <p class="post-meta">
                             نوشته شده توسط
-                            <a href="#!">گرشاسب</a>
+                            <a href="{% url 'blog:author' article.author %}">{{article.author.username}}</a>
                             {{article.jpublish}}
                             <!--show category in box-->
                             <div class="">
