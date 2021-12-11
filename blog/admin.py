@@ -66,4 +66,4 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 # Register Article model
-admin.site.register(Article,ArticleAdmin)
+admin.site.register(Article, ArticleAdmin)
