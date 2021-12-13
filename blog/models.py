@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.urls import reverse
+from account.models import User
 from django.utils.html import format_html
 from django.utils import timezone
 from extensions.utils import jalali_converter
@@ -63,16 +64,21 @@ class Article(models.Model):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, verbose_name='وضعیت')
 
 
+    # show title in admin page  
+    def __str__(self):
+        return self.title
 
-     # setting for Article model 
+
+    # 
+    def get_absolute_url(self):
+        return reverse("account:home")
+    
+    # setting for Article model 
     class Meta():
         verbose_name = 'مقاله'
         verbose_name_plural = 'مقالات'
         ordering = ['-publish']    
 
-    # show title in admin page  
-    def __str__(self):
-        return self.title
 
     # jpublish means jalali publish
     def jpublish(self):
@@ -84,6 +90,11 @@ class Article(models.Model):
     def thumbnail_tag(self):
         return format_html("<img width=100 height=75 style='border-radius:7px;' src='{}'".format(self.thumbnail.url))
     thumbnail_tag.short_description = " عکس"
+
+    # category
+    def category_to_str(self):
+        return "، ".join([category.title for category in self.category.active()])
+    category_to_str.short_description = "دسته‌بندی"
 
    # Replacing  ArticleManager with the original Objects
     objects = ArticleManager()
