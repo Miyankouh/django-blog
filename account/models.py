@@ -4,6 +4,9 @@ from django.utils import timezone
 
 # Continue the user model on the blog
 class User(AbstractUser):
+    email = models.EmailField(unique=True, verbose_name='ایمیل')
+
+    
     is_author = models.BooleanField(default=False, verbose_name= 'وضعیت نویسندگی')
     special_user = models.DateTimeField(default=timezone.now, verbose_name= 'کاربر ویژه تا')
 
