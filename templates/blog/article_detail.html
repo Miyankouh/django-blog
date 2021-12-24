@@ -1,5 +1,8 @@
 {% extends 'blog/base.html' %}
-
+{% load comment_tags %}  
+{% load ratings %}
+{% load base_tags %}
+{% load humanize %}
 
 <!--Dynamic title -->
 {% block title %} |{{object.title}} {% endblock  %}
@@ -16,7 +19,10 @@
                     {% if article.is_special %}
                         <span  style="font-size: 14px; background-color:red; padding:3px; border-radius:2px;">ویژه</span>
                     {% endif %}
-                    <time>{{object.jpublish}}</time>
+                    <time>{{object.publish|naturaltime}}</time>
+                    <div> {% ratings object %} </div>
+                    <!--ip address-->
+                    <div> بازدید ها: {{object.hits.count}}</div> </div>
                 </div>
             </div>
         </div>
@@ -34,12 +40,17 @@
                             {{object.description|safe}}
                         {% else %}
                             {{article.description|striptags|truncatewords:30}}
-                            <p class="alert alert-warning" > مقاله ویژه : برای مشاهده ان  باید  <a class="alert-link" href="#" >  اشتراک ویژه خریداری بکنید</a>    </p>
+                            <p class="alert alert-warning" > مقاله ویژه : برای مشاهده ان  باید  <a class="alert-link" href="#" >  اشتراک ویژه خریداری بکنید</a> </p>
                            
                         {% endif %}
                     {% else %}
                         {{object.description|safe}}
                     {% endif %}
+
+                    {% render_comments object request %}  
+                    {% include_bootstrap %} 
+                   
+                    
                 </div>
             </div>
         </div>

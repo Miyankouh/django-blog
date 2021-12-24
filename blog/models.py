@@ -5,22 +5,33 @@ from django.utils.html import format_html
 from django.utils import timezone
 from extensions.utils import jalali_converter
 
+from django.contrib.contenttypes.fields import GenericRelation
+from comment.models import Comment
 
 
 
-# my managers = Article
+
+# my managers
 class ArticleManager(models.Manager):
-    def published(self):
-        return self.filter(status="p")
- 
+	def published(self):
+		return self.filter(status='p')
 
 
-# my managers = Caregory
 class CategoryManager(models.Manager):
-    def active(self):
-        return self.filter(status=True)
+	def active(self):
+		return self.filter(status=True)
 
 #-----------------------------------------------
+# IPAddress
+class IPAddress(models.Model):
+	ip_address = models.GenericIPAddressField(verbose_name="آدرس آی‌پی")
+
+
+
+
+
+#-----------------------------------------------
+
 #  CategoryModel
 
 class Category(models.Model):
@@ -65,6 +76,9 @@ class Article(models.Model):
     updated = models.DateTimeField(auto_now=True)
     is_special = models.BooleanField(default=False, verbose_name='مقاله ویژه ')
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, verbose_name='وضعیت')
+    comments = GenericRelation(Comment)
+    hits = models.ManyToManyField(IPAddress, through="ArticleHit" ,blank=True, related_name="hits", verbose_name="بازدیدها")
+
 
 
     # show title in admin page  
@@ -101,3 +115,12 @@ class Article(models.Model):
 
    # Replacing  ArticleManager with the original Objects
     objects = ArticleManager()
+
+
+
+# --------------------------------------------------------------------------------------------------
+# ArticleHit
+class ArticleHit(models.Model):
+	article = models.ForeignKey(Article, on_delete=models.CASCADE)
+	ip_address = models.ForeignKey(IPAddress, on_delete=models.CASCADE)
+	created = models.DateTimeField(auto_now_add=True)
